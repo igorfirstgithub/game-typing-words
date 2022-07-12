@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
+  const INTERVAL = 10;
+
   const [text, setText] = useState("");
-  const [timeRemaining, setTimeRemaining] = useState(5);
+  const [timeRemaining, setTimeRemaining] = useState(INTERVAL);
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [numWords, setNumWords] = useState(0);
 
@@ -13,7 +15,6 @@ function App() {
       setIsGameRunning(false);
       setNumWords(countWords(text));
     }
-    //    console.log(isGameRunning);
   }, [timeRemaining, isGameRunning]);
 
   function changeText(event) {
@@ -29,20 +30,27 @@ function App() {
   }
 
   function startGame() {
-    if (isGameRunning === false) {
-      setIsGameRunning(true);
-      setNumWords(0);
-      setTimeRemaining(5);
-      setText("");
-    }
+    // if (isGameRunning === false) {
+    setIsGameRunning(true);
+    setNumWords(0);
+    setTimeRemaining(INTERVAL);
+    setText("");
+    // }
   }
 
   return (
     <div>
       <h1>How fast do you type?</h1>
-      <textarea value={text} name="textarea" onChange={changeText} />
-      <h4>Time remainng: {timeRemaining}</h4>
-      <button onClick={startGame}>Start</button>
+      <textarea
+        disabled={!isGameRunning}
+        value={text}
+        name="textarea"
+        onChange={changeText}
+      />
+      <h4>Time remaining: {timeRemaining}</h4>
+      <button disabled={isGameRunning} onClick={startGame}>
+        Start
+      </button>
       <h1>Word count: {numWords}</h1>
     </div>
   );
