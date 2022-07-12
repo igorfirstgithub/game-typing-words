@@ -30,12 +30,10 @@ function App() {
   }
 
   function startGame() {
-    // if (isGameRunning === false) {
     setIsGameRunning(true);
     setNumWords(0);
     setTimeRemaining(INTERVAL);
     setText("");
-    // }
   }
 
   return (
