@@ -12,7 +12,14 @@ function App() {
 
   useEffect(() => {
     if (isGameRunning === true && timeRemaining > 0) {
-      setTimeout(() => setTimeRemaining((prevTime) => prevTime - 1), 1000);
+      setTimeout(
+        () =>
+          setTimeRemaining((prevTime) => {
+            setNumWords(countWords(text));
+            return prevTime - 0.25;
+          }),
+        250
+      );
     } else if (timeRemaining === 0) {
       setIsGameRunning(false);
       setNumWords(countWords(text));
@@ -50,7 +57,7 @@ function App() {
         onChange={changeText}
         ref={ref}
       />
-      <h4>Time remaining: {timeRemaining}</h4>
+      <h4>Time remaining: {timeRemaining.toFixed(0)}</h4>
       <button disabled={isGameRunning} onClick={startGame}>
         Start
       </button>
