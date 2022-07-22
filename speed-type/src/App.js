@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function App() {
   const INTERVAL = 10;
@@ -7,6 +7,8 @@ function App() {
   const [timeRemaining, setTimeRemaining] = useState(INTERVAL);
   const [isGameRunning, setIsGameRunning] = useState(false);
   const [numWords, setNumWords] = useState(0);
+
+  const ref = useRef(null);
 
   useEffect(() => {
     if (isGameRunning === true && timeRemaining > 0) {
@@ -34,6 +36,8 @@ function App() {
     setNumWords(0);
     setTimeRemaining(INTERVAL);
     setText("");
+    ref.current.disabled = false;
+    ref.current.focus();
   }
 
   return (
@@ -44,6 +48,7 @@ function App() {
         value={text}
         name="textarea"
         onChange={changeText}
+        ref={ref}
       />
       <h4>Time remaining: {timeRemaining}</h4>
       <button disabled={isGameRunning} onClick={startGame}>
